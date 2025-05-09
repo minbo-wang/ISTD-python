@@ -1,5 +1,6 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
+.DS_Store
 *.py[cod]
 *$py.class
 
@@ -117,6 +118,7 @@ dmypy.json
 # define ignore file
 /data/sirst/
 /data/MDFA/
+/data/
 
 #/result/MDFA/*
 #/result/SIRST/*

@@ -1,5 +1,10 @@
 import os.path as osp
 from utils.images import load_image
+import torch.utils.data as Data
+import torchvision.transforms as transforms
+
+import os
+from PIL import Image
 
 
 class MDFA(object):
@@ -27,6 +32,25 @@ class MDFA(object):
             mask_path = osp.join(self.mask_dir, '%05d.png' % i)
         else:
             raise NotImplementedError
+
+        img = load_image(img_path)
+        mask = load_image(mask_path)
+        return img, mask
+
+    def __len__(self):
+        return self.length
+    
+class NUDTSIRST(object):
+    def __init__(self, base_dir='../data/NUDT-SIRST/', mode='test'):
+        self.img_dir = osp.join(base_dir, 'images')
+        self.mask_dir = osp.join(base_dir, 'masks')
+        self.length = 1235
+
+        self.mode = mode
+
+    def __getitem__(self, i):
+        img_path = osp.join(self.img_dir, '%06d.png' % (i+1))
+        mask_path = osp.join(self.mask_dir, '%06d.png' % (i+1))
 
         img = load_image(img_path)
         mask = load_image(mask_path)
@@ -64,3 +88,45 @@ class SIRST(object):
 
     def __len__(self):
         return len(self.names)
+    
+class SirstAugDataset(Data.Dataset):
+    def __init__(self, base_dir='../data/sirst_aug', mode='train', base_size=256):
+        assert mode in ['train', 'test']
+
+        if mode == 'train':
+            self.data_dir = osp.join(base_dir, 'trainval')
+        elif mode == 'test':
+            self.data_dir = osp.join(base_dir, 'test')
+        else:
+            raise NotImplementedError
+
+        self.names = []
+        for filename in os.listdir(osp.join(self.data_dir, 'images')):
+            if filename.endswith('png'):
+                self.names.append(filename)
+
+        self.img_transform = transforms.Compose([
+            transforms.Resize((base_size, base_size), interpolation=Image.BILINEAR),
+            transforms.ToTensor(),
+        ])
+        self.mask_transform = transforms.Compose([
+            transforms.Resize((base_size, base_size), interpolation=Image.NEAREST),
+            transforms.ToTensor(),
+        ])
+
+
+    def __getitem__(self, i):
+        name = self.names[i]
+        img_path = osp.join(self.data_dir, 'images', name)
+        label_path = osp.join(self.data_dir, 'masks', name)
+
+        img = load_image(img_path)
+        mask = load_image(label_path)
+        return img, mask
+
+    def __len__(self):
+        return len(self.names)
+    
+    @property
+    def name(self):
+        return 'sirstaug'

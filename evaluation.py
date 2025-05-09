@@ -10,16 +10,17 @@ from tqdm import tqdm
 import scipy.io as scio
 
 if __name__ == '__main__':
-    algorithms = [Tophat]
+    algorithms = [MSHNetWrapper] # Tophat, MPCM, LCM_Custom
     # algorithms = [LCM, MaxMedian, MPCM, PSTNN, IPI]
     # datasets = [MDFA, SIRST, NUDTSIRST, IRSTD1K, sirst_aug]
-    datasets = [IRSTD1K, sirst_aug]
-
-    dataset_dirs = {MDFA: r'./data/MDFA',
-                    SIRST: r'./data/sirst',
+    # datasets = [IRSTD1K, sirst_aug]
+    datasets = [SirstAugDataset] #NUDTSIRST, 
+    dataset_dirs = {
+                    # MDFA: r'./data/MDFA',
+                    # SIRST: r'./data/sirst',
                     NUDTSIRST: r'./data/NUDT-SIRST',
-                    IRSTD1K: r'./data/IRSTD-1K',
-                    sirst_aug: r'./data/sirst_aug'
+                    # IRSTD1K: r'./data/IRSTD-1K',
+                    # SirstAugDataset: r'./data/sirst_aug'
                     }
 
     for algorithm in algorithms:

@@ -6,3 +6,5 @@ from .tophat import Tophat
 from .maxmedian import MaxMedian
 from .mpcm import MPCM
 from .pstnn import PSTNN
+from .lcm_custom import LCM_Custom
+from .mshnet import MSHNetWrapper

@@ -52,7 +52,7 @@ class MPCM(BaseDetector):
     def construct_filters(self, r_in):
         d_in = 2 * r_in + 1
         d_ex = 3 * d_in
-        filters = np.zeros((d_ex, d_ex, 8), dtype=np.float)
+        filters = np.zeros((d_ex, d_ex, 8), dtype=np.float64)
         filters[r_in + d_in, r_in + d_in, :] = 1
 
         filters[r_in, r_in, 0] = -1
