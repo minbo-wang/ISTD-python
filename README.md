@@ -3,13 +3,13 @@ Codebase of model-driven Infrared Small Targets Detection (ISTD) approaches.
 
 ## Requirements
 准备开发环境
-python 3.9.22
+* python 3.9.22
 ```shell
 source venv.sh
 ```
 下载模型，下载好的模型放在项目路径下model文件夹中。
-[IRSTD-1k_weights](https://drive.google.com/file/d/1q3zfzJRczodGQb0dZ3y3KmLn0zz4F8ra/view?usp=drive_link)
-[NUDT-SIRST_weights](https://drive.google.com/file/d/1uczanUIHePZqJA79RZu25fv9FNSHSDQZ/view?usp=drive_link)
+* [IRSTD-1k_weights](https://drive.google.com/file/d/1q3zfzJRczodGQb0dZ3y3KmLn0zz4F8ra/view?usp=drive_link)
+* [NUDT-SIRST_weights](https://drive.google.com/file/d/1uczanUIHePZqJA79RZu25fv9FNSHSDQZ/view?usp=drive_link)
 
 下载数据，下载好的数据放在项目路径下data文件夹中并解压。
 * **NUST-SIRST** &nbsp; [[download]](https://github.com/wanghuanphd/MDvsFA_cGAN) &nbsp; [[paper]](https://openaccess.thecvf.com/content_ICCV_2019/papers/Wang_Miss_Detection_vs._False_Alarm_Adversarial_Learning_for_Small_Object_ICCV_2019_paper.pdf)
