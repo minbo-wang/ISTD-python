@@ -1,6 +1,28 @@
 # ISTD-python
 Codebase of model-driven Infrared Small Targets Detection (ISTD) approaches.
 
+## Requirements
+准备开发环境
+python 3.9.22
+```shell
+source venv.sh
+```
+下载模型，下载好的模型放在项目路径下model文件夹中。
+[IRSTD-1k_weights](https://drive.google.com/file/d/1q3zfzJRczodGQb0dZ3y3KmLn0zz4F8ra/view?usp=drive_link)
+[NUDT-SIRST_weights](https://drive.google.com/file/d/1uczanUIHePZqJA79RZu25fv9FNSHSDQZ/view?usp=drive_link)
+
+下载数据，下载好的数据放在项目路径下data文件夹中并解压。
+* **NUST-SIRST** &nbsp; [[download]](https://github.com/wanghuanphd/MDvsFA_cGAN) &nbsp; [[paper]](https://openaccess.thecvf.com/content_ICCV_2019/papers/Wang_Miss_Detection_vs._False_Alarm_Adversarial_Learning_for_Small_Object_ICCV_2019_paper.pdf)
+* **SIRST-v1** &nbsp; [[download]](https://github.com/YimianDai/sirst) &nbsp; [[paper]](https://arxiv.org/pdf/2009.14530.pdf)
+* **SIRST-v2** &nbsp; [[download]](https://github.com/YimianDai/open-deepinfrared) &nbsp; [[paper]](https://arxiv.org/pdf/2212.08472.pdf)
+* **NUDT-SIRST** &nbsp; [[download]](https://github.com/YeRen123455/Infrared-Small-Target-Detection) &nbsp; [[paper]](https://ieeexplore.ieee.org/abstract/document/9864119)
+* **IRSTD-1K** &nbsp; [[download dir]](https://github.com/RuiZhang97/ISNet) &nbsp; [[paper]](https://ieeexplore.ieee.org/document/9880295)
+* **NUDT-SIRST-Sea** &nbsp; [[download]](https://github.com/TianhaoWu16/Multi-level-TransUNet-for-Space-based-Infrared-Tiny-ship-Detection) &nbsp; [[paper]](https://ieeexplore.ieee.org/document/10011449/)
+* **IRDST** &nbsp; [[download]](https://github.com/sun11999/RDIAN) &nbsp; [[paper]](https://ieeexplore.ieee.org/document/10011452/)
+
+
+## eval
+python evaluation.py
 
 ## Benchmark
 
