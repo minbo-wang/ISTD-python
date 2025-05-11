@@ -10,11 +10,11 @@ from tqdm import tqdm
 import scipy.io as scio
 
 if __name__ == '__main__':
-    algorithms = [MSHNetWrapper] # Tophat, MPCM, LCM_Custom
+    algorithms = [LCM] # , Tophat, MSHNetWrapper, MPCM, LCM_Custom, LCM
     # algorithms = [LCM, MaxMedian, MPCM, PSTNN, IPI]
     # datasets = [MDFA, SIRST, NUDTSIRST, IRSTD1K, sirst_aug]
     # datasets = [IRSTD1K, sirst_aug]
-    datasets = [SirstAugDataset] #NUDTSIRST, 
+    datasets = [NUDTSIRST] #NUDTSIRST,  SirstAugDataset
     dataset_dirs = {
                     # MDFA: r'./data/MDFA',
                     # SIRST: r'./data/sirst',
@@ -27,6 +27,10 @@ if __name__ == '__main__':
         for dataset in datasets:
             print('...Evaluating algorithm: %s, Dataset: %s' % (algorithm.__name__, dataset.__name__))
 
+            save_path = r'result/%s/'%(dataset.__name__)
+            rst_dir = save_path + algorithm.__name__ + "/"
+            os.makedirs(rst_dir, exist_ok=True)
+
             data = dataset(base_dir=dataset_dirs[dataset])
             alg = algorithm()
 
@@ -38,8 +42,14 @@ if __name__ == '__main__':
             tbar = tqdm(range(data.__len__()))
             for i in tbar:
                 img, mask = data.__getitem__(i)
-                alg.process(img)
-                rst = alg.result['target']
+                
+                rst_file = f"{rst_dir}/%06d.jpg" % i
+                if not os.path.exists(rst_file):
+                    alg.process(img)
+                    rst = alg.result['target']
+                    cv2.imwrite(rst_file, rst)
+                else:
+                    rst = cv2.imread(rst_file, cv2.IMREAD_GRAYSCALE)
 
                 bsf_scrg.update(pred=rst, label=mask, in_img=img)
                 roc.update(pred=rst, label=mask)
@@ -59,7 +69,6 @@ if __name__ == '__main__':
 
 
             # Save results
-            save_path = r'result/%s/'%(dataset.__name__)
             save_name = '%s_%s.mat' % (algorithm.__name__, dataset.__name__)
             save_dict = {'scrg': scrg,
                          'bsf': bsf,
@@ -71,5 +80,7 @@ if __name__ == '__main__':
                          'our_pd': pd_our,
                          'our_fa': fa_our,
                          }
+            with open(osp.join(save_path, save_name.replace(".mat", ".txt")), "w") as fp:
+                fp.write(str(save_dict))
 
             scio.savemat(osp.join(save_path, save_name), save_dict)
